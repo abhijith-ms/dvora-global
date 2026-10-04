@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-ink-navy: #12243f;
+  --color-ink-deep: #0b1728;
+  --color-slate: #2e3742;
+  --color-steel: #69737f;
+  --color-fog: #9aa3ad;
+  --color-mist: #c3c9cf;
+  --color-rule: #e3ded5;
+  --color-paper: #faf8f4;
+  --color-white: #ffffff;
+  --color-clay: #c05a3e;
+  --color-clay-wash: #fbf0ec;
+  --color-verify-green: #2c6e52;
+  --color-verify-wash: #eaf2ed;
+
+  /* Typography */
+  --font-switzer: 'Switzer', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography — Scale */
+  --text-caption: 12px;
+  --leading-caption: 1.5;
+  --text-body-sm: 14px;
+  --leading-body-sm: 1.5;
+  --text-body: 16px;
+  --leading-body: 1.6;
+  --text-body-lg: 18px;
+  --leading-body-lg: 1.6;
+  --text-subheading-sm: 20px;
+  --leading-subheading-sm: 1.3;
+  --tracking-subheading-sm: -0.2px;
+  --text-subheading-lg: 28px;
+  --leading-subheading-lg: 1.2;
+  --tracking-subheading-lg: -0.28px;
+  --text-heading-sm: 36px;
+  --leading-heading-sm: 1.1;
+  --tracking-heading-sm: -0.72px;
+  --text-heading: 44px;
+  --leading-heading: 1.1;
+  --tracking-heading: -0.88px;
+  --text-heading-lg: 52px;
+  --leading-heading-lg: 1.1;
+  --tracking-heading-lg: -1.56px;
+  --text-display: 60px;
+  --leading-display: 1;
+  --tracking-display: -1.8px;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-hairline: rgba(18, 36, 63, 0.06) 0px 0px 0px 1px;
+  --shadow-sm: rgba(18, 36, 63, 0.03) 0px 1px 4px 0px, rgba(18, 36, 63, 0.05) 0px 1px 0px 0px, rgba(18, 36, 63, 0.04) 0px 0px 0px 1px;
+  --shadow-md: rgba(18, 36, 63, 0.05) 0px 8px 16px 0px, rgba(18, 36, 63, 0.05) 0px 4px 8px 0px;
+  --shadow-lg: rgba(18, 36, 63, 0.04) 0px 24px 32px 0px, rgba(18, 36, 63, 0.05) 0px 12px 16px 0px, rgba(18, 36, 63, 0.06) 0px 4px 6px 0px;
+  --shadow-button: rgba(18, 36, 63, 0.10) 0px 1px 3px 0px, rgba(18, 36, 63, 0.05) 0px 1px 0px 0px, rgba(255, 255, 255, 0.4) 0px 1px 0px 0px inset;
+}
+
+/* DVORA-specific named tokens not expressed by Tailwind's @theme generation
+   (page layout constants, named radii aliases per DESIGN.md's Quick Start). */
+:root {
+  --page-max-width: 1140px;
+  --section-gap: 96px;
+  --card-padding: 24px;
+  --element-gap: 8px;
+  --nav-height: 68px;
+
+  --radius-tags: 9999px;
+  --radius-cards: 8px;
+  --radius-inputs: 8px;
+  --radius-buttons: 8px;
+  --radius-images: 8px;
+
+  --surface-frosted: #ffffff99;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-rule);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  section[id], main[id] {
+    scroll-margin-top: 88px;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-slate);
+    font-family: var(--font-switzer);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink-navy);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Travel visuals progressively enhance visible server-rendered artwork. */
+:root { --color-sky-wash: #edf4f8; --color-warm-wash: #f5ede4; }
+.section-kicker { font-size: 14px; font-weight: 500; color: #58748b; margin-bottom: 16px; }
+.hero-section { background: radial-gradient(ellipse at 78% 30%, #d9ebf7 0%, #edf4f8 30%, #faf8f4 69%); position: relative; }
+.hero-section > div { padding-top: 64px; padding-bottom: 72px; }
+.hero-cta { box-shadow: 0 8px 24px #c05a3e25; }
+.hero-world { min-width: 0; }
+.hero-world-caption { border-top: 1px solid #b9cdda; padding-top: 20px; margin-inline: 20px; }
+.hero-world-caption > p:first-child { letter-spacing: -.4px; }
+.travel-visual-wrap { position: relative; width: 100%; }
+.travel-visual { width: 100%; aspect-ratio: 600 / 440; position: relative; }
+.travel-canvas, .travel-fallback, .travel-art { display: block; width: 100%; height: 100%; }
+.travel-canvas, .travel-fallback { position: absolute; inset: 0; }
+.travel-visual[data-ready="true"] .travel-fallback { visibility: hidden; }
+.travel-fallback > [data-still] { display: none; position: absolute; inset: 0; }
+.travel-visual[data-stage="0"] [data-still="0"], .travel-visual[data-stage="1"] [data-still="1"], .travel-visual[data-stage="2"] [data-still="2"], .travel-visual[data-stage="3"] [data-still="3"], .travel-visual[data-stage="4"] [data-still="4"] { display: block; }
+.travel-pause { position: absolute; bottom: 14px; right: 14px; border: 1px solid #b0c4d3; border-radius: 99px; padding: 6px 12px; background: #faf8f4df; color: #294961; font-size: 12px; cursor: pointer; }
+.about-panel { background: #eff4f7; padding: 32px; border-radius: 16px; border-left: 3px solid #b68b67; }
+.why-item { border-top: 1px solid #d9e2e8; padding-top: 24px; }
+.why-item .service-art { width: 48px; height: 48px; margin-bottom: 16px; }
+.service-art { width: 64px; height: 64px; color: #345d7a; }
+.destination-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin-top: 40px; }
+.destination-panel { min-height: 205px; border-radius: 16px; border: 1px solid #d1dfe7; background: #e6eff5; padding: 28px; position: relative; overflow: hidden; }
+.destination-panel h3 { font-size: 28px; font-weight: 500; color: #173854; position: relative; z-index: 1; }
+.destination-panel p { font-size: 14px; max-width: 23ch; margin-top: 12px; position: relative; z-index: 1; }
+.destination-panel svg { position: absolute; width: 55%; height: 85%; right: -4%; top: 17%; fill: #8daec5; opacity: .3; }
+.destination-uk { background: #f2eae1; border-color: #e5d7c9; }
+.destination-uk svg { fill: #b18c6b; }
+.section-services { background: linear-gradient(#fff,#f2f6f9); }
+.service-card { border: 1px solid #dbe4e9; background: white; border-radius: 14px; box-shadow: 0 8px 24px #17385405; padding-top: 24px; }
+.service-card > .service-art { margin-left: 24px; }
+.service-card > div { box-shadow: none; background: transparent; }
+.section-how-it-works { background: #122b45; color: #eaf1f6; }
+.section-consultation { background: radial-gradient(ellipse at 0% 70%, #efe1d2, #faf5ee 65%); }
+.section-consultation form { border: 1px solid #e5d7c9; border-radius: 16px; }
+.nav-motion-link { position: relative; width: fit-content; }
+.nav-motion-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 180ms ease-out; }
+.nav-motion-link:hover::after, .nav-motion-link:focus-visible::after { transform: scaleX(1); }
+.journey { position: relative; background: #122b45; display: flex; flex-direction: column; }
+.journey :focus-visible { outline-color: #f0c8a5; }
+.journey-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
+.journey-heading h2 { font-size: 36px; font-weight: 600; line-height: 1.15; letter-spacing: -.8px; }
+.journey-heading .section-kicker { color: #b3ccdd; }
+.journey-heading a { font-size: 14px; color: #e4c09e; }
+.journey-steps { display: grid; gap: 32px; margin-top: 40px; }
+.journey-steps > li { border-left: 1px solid #486077; padding-left: 24px; }
+.journey-steps h3 { font-size: 22px; margin-top: 16px; font-weight: 500; }
+.journey-description { font-size: 16px; line-height: 1.65; margin-top: 16px; color: #c9d9e5; }
+.journey-marker { display: inline-grid; place-items: center; width: 38px; height: 38px; border: 1px solid #668198; border-radius: 50%; position: relative; background: #122b45; color: #ccdde9; font-size: 14px; }
+.journey-inline-art { max-width: 300px; }
+.journey-track, .journey-showcase { display: none; }
+.journey-enhanced { padding-block: 20px; }
+.journey-enhanced .journey-heading { order: 0; }
+.journey-enhanced .journey-steps { order: 1; grid-template-columns: repeat(5, 1fr); gap: 16px; position: relative; margin-top: 32px; }
+.journey-enhanced .journey-steps > li { border: 0; padding: 0; }
+.journey-enhanced .journey-marker { transition: background .18s, color .18s; }
+.journey [data-current="true"] .journey-marker { background: #dfb58f; color: #122b45; border-color: #dfb58f; }
+.journey-enhanced .journey-description { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.journey-enhanced .journey-inline-art, .journey-mobile .journey-inline-art { display: none; }
+.journey-enhanced .journey-track { display: block; position: absolute; top: 137px; left: 19px; right: calc(20% - 19px); height: 1px; background: #536a7d; }
+.journey-track > span { display: block; height: 100%; background: #dfb58f; transform-origin: left; }
+.journey-enhanced .journey-showcase { order: 2; display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 40px; margin-top: 24px; }
+.journey-showcase .travel-visual { max-height: 310px; }
+.travel-journey { background: radial-gradient(ellipse, #34536a 0%, #1c3852 45%, #122b45 72%); border-radius: 24px; }
+.journey-panels { display: grid; }
+.journey-panels > div { grid-area: 1 / 1; }
+.journey-stage-label { font-size: 14px; color: #b2c7d6; margin-bottom: 12px; }
+.journey-stage-title { font-size: 34px; font-weight: 500; margin-bottom: 16px; }
+.journey-panels > div > p:last-child { font-size: 18px; line-height: 1.65; color: #ccdae5; max-width: 36ch; }
+.journey-mobile .journey-heading { order: 0; }
+.journey-mobile .journey-showcase { order: 1; display: block; position: sticky; top: 76px; z-index: 10; background: #122b45; margin-top: 24px; border-bottom: 1px solid #496479; }
+.journey-mobile .travel-visual { height: 200px; aspect-ratio: auto; }
+.journey-mobile .journey-panels { display: none; }
+.journey-mobile .journey-steps { order: 2; gap: 0; margin-top: 24px; }
+.journey-mobile .journey-steps > li { min-height: 42svh; padding-block: 24px; }
+@media (max-width: 639px) {
+  .destination-panels { grid-template-columns: 1fr; }
+  .hero-world-caption { margin-inline: 0; }
+  .about-panel { padding: 24px; }
+  .journey-heading h2 { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { .nav-motion-link::after { transition: none; } }
