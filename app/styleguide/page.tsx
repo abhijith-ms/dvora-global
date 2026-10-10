@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NavBar } from "@/components/site/nav-bar";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 import { CounsellorProfileCard } from "@/components/site/counsellor-profile-card";
 import { PlacementOutcomeCard } from "@/components/site/placement-outcome-card";
 import { UniversityPartnerLogoBar } from "@/components/site/university-partner-logo-bar";
