@@ -125,7 +125,6 @@ export default function Home() {
             <Image src="/brand/logo-horizontal-white.png" alt="DVORA Global" width={1130} height={240} unoptimized className="h-auto w-[180px] max-w-full" />
             <p className="text-[15px] leading-relaxed text-paper">{site.tagline}</p>
           </div>
-          <p className="mt-4 text-[12px] text-mist">Earth imagery: NASA Earth Observatory.</p>
           <p className="mt-6 text-[14px] text-mist">Under {site.contact.registeredName}<br />VAT: {site.contact.vat}</p>
         </div>
         <div>
