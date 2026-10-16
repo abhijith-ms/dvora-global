@@ -10,8 +10,6 @@ export const TravelVisual = forwardRef<TravelVisualHandle, { mode: "hero" | "jou
   const host = useRef<HTMLDivElement>(null);
   const scene = useRef<TravelController | null>(null);
   const progress = useRef(0);
-  const paused = useRef(false);
-  const [isPaused, setPaused] = useState(false);
   const [ready, setReady] = useState(false);
   useImperativeHandle(forwardedRef, () => ({ setProgress(value) {
     progress.current = value;
@@ -38,7 +36,7 @@ export const TravelVisual = forwardRef<TravelVisualHandle, { mode: "hero" | "jou
           if (destroyed || token !== generation || !host.current) return;
           const controller = await createTravelScene(host.current, mode, () => { if (!destroyed && token === generation) setReady(false); });
           if (destroyed || token !== generation) { controller.dispose(); return; }
-          scene.current = controller; controller.setProgress(progress.current); controller.setPaused(paused.current);
+          scene.current = controller; controller.setProgress(progress.current);
           setReady(true);
         }).catch((error: unknown) => { if (process.env.NODE_ENV === "development") console.warn("Travel scene fallback", error); if (!destroyed && token === generation) setReady(false); });
       }, { rootMargin: mode === "hero" ? "0px" : "200px" });
@@ -51,8 +49,5 @@ export const TravelVisual = forwardRef<TravelVisualHandle, { mode: "hero" | "jou
     <div ref={host} className="travel-visual" data-stage="0" data-ready={ready} aria-hidden="true">
       <div className="travel-fallback">{mode === "hero" ? <TravelArt hero /> : [0,1,2,3,4].map(stage => <div key={stage} data-still={stage}><TravelArt stage={stage}/></div>)}</div>
     </div>
-    {mode === "hero" && ready && <button type="button" className="travel-pause" aria-pressed={isPaused} onClick={() => {
-      paused.current = !paused.current; setPaused(paused.current); scene.current?.setPaused(paused.current);
-    }}>{isPaused ? "Resume animation" : "Pause animation"}</button>}
   </div>;
 });

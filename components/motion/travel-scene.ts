@@ -3,7 +3,7 @@ import { gsap } from "@/lib/motion";
 import { journeyState } from "@/lib/journey-state";
 import { aircraft, journeyObjects, material, earthMaterial } from "./travel-models";
 
-export type TravelController = { setProgress: (value:number)=>void; setPaused:(value:boolean)=>void; dispose:()=>void };
+export type TravelController = { setProgress: (value:number)=>void; dispose:()=>void };
 
 export async function createTravelScene(host:HTMLDivElement, mode:"hero"|"journey", onFallback:()=>void):Promise<TravelController> {
   const mobile=matchMedia("(max-width: 767px)").matches;
@@ -36,10 +36,10 @@ export async function createTravelScene(host:HTMLDivElement, mode:"hero"|"journe
     objects=journeyObjects(texture);objects.groups.forEach(group=>root.add(group));root.add(objects.shared);
     const base=new T.Mesh(new T.CylinderGeometry(1.7,1.8,.12,56),material("#274765"));base.position.y=-1.12;root.add(base);root.rotation.y=-.1;
   }
-  let disposed=false,paused=false,visible=false,frame=0,last=0,frames=0,windowStart=0,quality=0;
+  let disposed=false,visible=false,frame=0,last=0,frames=0,windowStart=0,quality=0;
   let orbits=0;
   const clock={angle:.6};let orbitTween:gsap.core.Tween|undefined;
-  const controller:TravelController={setProgress, setPaused(value){paused=value;sync();},dispose};
+  const controller:TravelController={setProgress,dispose};
   const fallback=()=>{dispose();onFallback();};
   function requestRender(){if(disposed||!visible||document.hidden||frame)return;frame=requestAnimationFrame(render);}
   function render(now:number){
@@ -70,12 +70,12 @@ export async function createTravelScene(host:HTMLDivElement, mode:"hero"|"journe
     objects.shared.scale.setScalar(.8*(1-(state.index===3?state.mix:0)));requestRender();
   }
   function sync(){if(disposed)return;const active=visible&&!document.hidden;
-    if(active&&!paused)orbitTween?.resume();else orbitTween?.pause();
+    if(active)orbitTween?.resume();else orbitTween?.pause();
     if(!active){cancelAnimationFrame(frame);frame=0;last=0;windowStart=0;gsap.killTweensOf(root.rotation);}else requestRender();
   }
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();});
   const resizeObserver=new ResizeObserver(resize);
-  const move=(event:PointerEvent)=>{if(mode!=="hero"||event.pointerType!=="mouse"||paused||!visible)return;const r=host.getBoundingClientRect();gsap.to(root.rotation,{x:((event.clientY-r.top)/r.height-.5)*.08,y:((event.clientX-r.left)/r.width-.5)*.1,duration:.6,overwrite:true,onUpdate:requestRender});};
+  const move=(event:PointerEvent)=>{if(mode!=="hero"||event.pointerType!=="mouse"||!visible)return;const r=host.getBoundingClientRect();gsap.to(root.rotation,{x:((event.clientY-r.top)/r.height-.5)*.08,y:((event.clientX-r.left)/r.width-.5)*.1,duration:.6,overwrite:true,onUpdate:requestRender});};
   const leave=()=>{if(mode==="hero")gsap.to(root.rotation,{x:0,y:0,duration:.6,overwrite:true,onUpdate:requestRender});};
   const lost=(event:Event)=>{event.preventDefault();fallback();};
   function dispose(){if(disposed)return;disposed=true;orbitTween?.kill();gsap.killTweensOf(root.rotation);cancelAnimationFrame(frame);observer.disconnect();resizeObserver.disconnect();document.removeEventListener("visibilitychange",sync);host.removeEventListener("pointermove",move);host.removeEventListener("pointerleave",leave);renderer.domElement.removeEventListener("webglcontextlost",lost);

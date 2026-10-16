@@ -15,7 +15,7 @@ Globe and aircraft imagery is approved. The globe is illustrative of internation
 
 Warm clay and sand accents may recur in calls to action, route/progress indicators, and illustration details. Verify Green remains reserved for genuinely verified facts. Retain the geometric sans typography and accessible contrast. These approved homepage layouts replace the earlier ledger-only layout recommendations below.
 
-GSAP controls all animation. Hero motion has an explicit pause control and stops offscreen or in background tabs. Journey motion is scroll-driven and settles when scrolling stops. Desktop uses one pinned sequence; tall mobile screens use a compact sticky visual with normally scrolling text. Reduced motion, data saving, failed assets and WebGL loss use visible static artwork. See `public/visuals/ATTRIBUTION.md` for imagery credit.
+GSAP controls all animation. Hero motion stops offscreen or in background tabs. Journey motion is scroll-driven and settles when scrolling stops. Desktop uses one pinned sequence; tall mobile screens use a compact sticky visual with normally scrolling text. Reduced motion, data saving, failed assets and WebGL loss use visible static artwork. See `public/visuals/ATTRIBUTION.md` for imagery credit.
 
 ## Tokens — Colors
 
